@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Yabu</string>
+
+    <!-- General -->
+    <string name="img_content_desc">Image</string>
+    <string name="ic_content_desc">Icon</string>
+
+    <!-- Main -->
+    <string name="main_data_tab">データ</string>
+    <string name="main_feed_tab">フィード</string>
+    <string name="main_words_tab">言葉</string>
+
+    <!-- Icon attributions -->
+    <string name="ic_share_attr">designed by Smashicons from Flaticon</string>
+    <string name="ic_disk_attr">designed by photo3idea_studio from Flaticon</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

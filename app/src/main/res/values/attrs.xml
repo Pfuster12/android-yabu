@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Tab">
+        <attr name="tabText" format="string" />
+        <attr name="tabIcon" format="reference"/>
+    </declare-styleable>
+</resources>

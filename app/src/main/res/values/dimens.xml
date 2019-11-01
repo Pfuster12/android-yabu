@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Margin & Padding -->
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_big">16dp</dimen>
+
+
+    <!-- Tabs -->
+    <dimen name="tab_height">52dp</dimen>
+    <dimen name="tab_icon_dimen">20dp</dimen>
+</resources>
