@@ -1,8 +1,9 @@
 package com.android.yabu.repositories.feed
 
-import com.android.yabu.repositories.NetworkResource
-
 /**
  * Wikipedia [Article] feed.
+ * @property articles
+ * @property timestamp [String] timestamp in the form of
  */
-data class Feed(val articles: List<Article>)
+data class Feed(var articles: List<Article> = listOf(),
+                val timestamp: FeedTimestamp = FeedTimestamp())

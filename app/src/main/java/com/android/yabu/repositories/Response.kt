@@ -1,10 +1,10 @@
 package com.android.yabu.repositories
 
 /**
- * A generic class that contains data and status about loading this data.
+ * A generic class for a task's binary response.
  */
-sealed class Response<T>(val data: T? = null, val message: String? = null) {
-    class Success<T>(data: T) : Response<T>(data)
-    class Loading<T>(data: T? = null) : Response<T>(data)
-    class Error<T>(code: Int, message: String, data: T? = null) : Response<T>(data, message)
-}
+sealed class Response<out T>
+
+class Success<out T>(val data: T) : Response<T>()
+
+class Failure(val code: Int, val message: String) : Response<Nothing>()

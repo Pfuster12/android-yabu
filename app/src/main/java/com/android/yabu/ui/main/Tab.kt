@@ -1,4 +1,4 @@
-package com.android.yabu.views.main
+package com.android.yabu.ui.main
 
 import android.content.Context
 import android.graphics.drawable.Icon
@@ -26,9 +26,9 @@ class Tab(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) 
     private var tabText = "Tab"
 
     /**
-     * [Tab] icon.
+     * [Tab] icon. Optional.
      */
-    private var iconRes = R.drawable.ic_share
+    private var iconRes: Int? = R.drawable.ic_share
 
     // inflate the tab layout...
     init {
@@ -49,7 +49,9 @@ class Tab(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) 
         }
 
         inflatedView.tab_text.text = tabText
-        inflatedView.tab_icon.setImageIcon(Icon.createWithResource(context, iconRes))
+        if (iconRes != null) {
+            inflatedView.tab_icon.setImageIcon(Icon.createWithResource(context, iconRes as Int))
+        }
 
         this.addView(inflatedView)
     }

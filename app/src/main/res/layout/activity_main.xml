@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.main.MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <FrameLayout
         android:id="@+id/main_fragment_container"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/main_tab_layout"/>
 
-    <com.android.yabu.views.main.TabLayout
+    <com.android.yabu.ui.main.TabLayout
         android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_height"
@@ -22,25 +22,25 @@
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.android.yabu.views.main.Tab
+        <com.android.yabu.ui.main.Tab
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             app:tabText="@string/main_data_tab"
             app:tabIcon="@drawable/ic_analytics"/>
 
-        <com.android.yabu.views.main.Tab
+        <com.android.yabu.ui.main.Tab
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             app:tabText="@string/main_feed_tab"
             app:tabIcon="@drawable/ic_share"/>
 
-        <com.android.yabu.views.main.Tab
+        <com.android.yabu.ui.main.Tab
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             app:tabText="@string/main_words_tab"
             app:tabIcon="@drawable/ic_floppy_disk"/>
-    </com.android.yabu.views.main.TabLayout>
+    </com.android.yabu.ui.main.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

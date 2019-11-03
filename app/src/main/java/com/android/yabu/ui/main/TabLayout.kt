@@ -1,4 +1,4 @@
-package com.android.yabu.views.main
+package com.android.yabu.ui.main
 
 import android.content.Context
 import android.util.AttributeSet
@@ -15,8 +15,32 @@ class TabLayout : LinearLayout {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
-        defStyleAttr
-    )
+        defStyleAttr)
+
+    interface OnTabClick {
+        fun onTabClick(pos: Int)
+    }
+
+    /**
+     * Current [Tab] index.
+     */
+    var currentItem: Int = 0
+
+    /**
+     * Sets up the [OnTabClick] listener.
+     * Defaults to the current item.
+     * @param onTabClick
+     */
+    fun setupOnTabClick(onTabClick: OnTabClick) {
+        children.forEachIndexed { index, child ->
+            child.setOnClickListener {
+                currentItem = index
+                onTabClick.onTabClick(index)
+            }
+        }
+
+        onTabClick.onTabClick(currentItem)
+    }
 
     /**
      * Gets given Tab child.

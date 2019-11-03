@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_medium"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:contentDescription="@string/img_content_desc"
+        android:id="@+id/feed_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/feed_item_image_height"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/feed_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/lorem_ipsum"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_margin="@dimen/padding_medium"
+        app:layout_constraintTop_toBottomOf="@id/feed_item_image"
+        style="@style/YabuText"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/feed_item_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/lorem_ipsum"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:layout_margin="@dimen/padding_medium"
+        app:layout_constraintTop_toBottomOf="@id/feed_item_title"
+        style="@style/YabuText"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,14 @@
     <string name="ic_share_attr">designed by Smashicons from Flaticon</string>
     <string name="ic_disk_attr">designed by photo3idea_studio from Flaticon</string>
 
+    <!-- Feed -->
+    <string name="feed_loading">Loading feed&#8230;</string>
+    <string name="feed_error">Error retrieving feed. Please try again later.</string>
+    <string name="lorem_ipsum">枝苦ぶへほょ中迎マメヤル最告38第づち惑静くッごリ研告り書企イラモタ際画ふ民
+        聞シ秋時やぞね殖付ヱメルヌ勝情モヘ歓得なざさ代崎ヨ初歩渡得ひにほむ。力そほきぎ禁民タキ英実流堂めぼ山
+        室ヒヲエノ険談ぶゆか長味じ卓鮮明ノセオ労山アサハ想営オ道大ほトとめ区86新族被紙しまんだ。7真う断直入地
+        めひ群極ニネ分流ごッルじ彼見ノフイ入新すはどづ上起評だざうぴ西府ホ女場にずゅ百3大2躍キ害古空排撲ぼび。</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
