@@ -12,6 +12,8 @@
     <style name="YabuText" parent="TextAppearance.AppCompat.Body1">
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/sawarabi_gothic</item>
+        <item name="android:textColor">@color/darkGrey</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
     </style>
 
     <!-- Title -->
@@ -19,7 +21,7 @@
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/sawarabi_gothic</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

@@ -4,9 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.yabu.R
 import com.android.yabu.repositories.feed.Feed
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 /**
  * [RecyclerView.Adapter] for the [FeedFragment] list.
@@ -55,7 +59,17 @@ class FeedAdapter(private val context: Context?,
     override fun getItemCount() = feed.articles.size
 
     override fun onBindViewHolder(holder: FeedItemViewHolder, position: Int) {
+        val item = feed.articles[position]
 
+        holder.feedTitle?.text = item.title
+        holder.feedBody?.text = item.body
+
+        if (context != null && holder.feedImage != null) {
+            Glide.with(context)
+                .load(item.image)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.feedImage as ImageView)
+        }
     }
 
     override fun getItemViewType(position: Int) =  when (position) {
@@ -69,7 +83,15 @@ class FeedAdapter(private val context: Context?,
 
 class FeedItemViewHolder(view: View, itemClick: (pos: Int) -> Unit) : RecyclerView.ViewHolder(view) {
 
+    var feedImage: ImageView? = null
+    var feedTitle: TextView? = null
+    var feedBody: TextView? = null
+
     init {
+        feedImage = view.findViewById(R.id.feed_item_image)
+        feedTitle = view.findViewById(R.id.feed_item_title)
+        feedBody = view.findViewById(R.id.feed_item_body)
+
         view.setOnClickListener { itemClick.invoke(adapterPosition) }
     }
 }

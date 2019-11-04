@@ -9,19 +9,23 @@ import retrofit2.http.Query
  */
 interface WikipediaWebservice {
 
-    @GET
+    companion object {
+        const val BASE_URL = "https://ja.wikipedia.org/w/api.php/"
+    }
+
+    @GET(".")
     fun getRandomTitles(@Query("action") action: String = "query",
                         @Query("list") list: String = "random",
                         @Query("rnnamespace") rnnamespace: Int = 0,
                         @Query("rnlimit") rnlimit: Int = 11,
                         @Query("format") format: String = "json"): Call<TitlesQueryResponse>
 
-    @GET
+    @GET(".")
     fun getExtract(@Query("action") action: String = "query",
-                   @Query("prop") prop: String = "extracts",
+                   @Query("prop") prop: String = "extracts|pageimages",
                    @Query("explaintext") explaintext: Boolean = true,
                    @Query("exsectionformat") exsectionformat: String = "plain",
                    @Query("format") format: String = "json",
                    @Query("formatversion") formatVersion: Int = 2,
-                   @Query("title", encoded = true) title: String): Call<ExtractsQueryResponse>
+                   @Query("titles", encoded = true) title: String): Call<ExtractsQueryResponse>
 }

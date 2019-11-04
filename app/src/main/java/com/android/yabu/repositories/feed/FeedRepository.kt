@@ -8,8 +8,6 @@ import com.android.yabu.repositories.feed.source.network.ExtractsQueryResponse
 import com.android.yabu.repositories.feed.source.network.WikipediaWebservice
 import com.android.yabu.utils.LogUtils
 import kotlinx.coroutines.CoroutineScope
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Repository for the [Feed] data.
@@ -17,18 +15,25 @@ import javax.inject.Singleton
  * @property cache
  * @property viewModelScope
  */
-// Informs Dagger that this class should be constructed only once.
-@Singleton
-class FeedRepository constructor(
+class FeedRepository private constructor(
     private val webservice: WikipediaWebservice,
-    private val cache: FeedCache,
-    private val viewModelScope: CoroutineScope) {
+    private val cache: FeedCache) {
+
+    companion object {
+
+        private var INSTANCE: FeedRepository? = null
+
+        fun getInstance(webservice: WikipediaWebservice,
+                        cache: FeedCache): FeedRepository {
+            return INSTANCE ?: FeedRepository(webservice, cache)
+        }
+    }
 
     /**
      * Fetches a [Feed] [Response].
      * @return a [LiveData] wrapped response.
      */
-    fun fetchFeed(): LiveData<Resource<Feed>> {
+    fun fetchFeed(viewModelScope: CoroutineScope): LiveData<Resource<Feed>> {
         return object : NetworkResource<Feed, List<ExtractsQueryResponse>>(viewModelScope) {
             override suspend fun loadFromDisk(): LiveData<Feed> {
                 return MutableLiveData(cache.readCache())
@@ -51,26 +56,35 @@ class FeedRepository constructor(
 
                 // map the titles into extract fetch tasks,
                 val titles = titlesResponse.body()?.query?.random ?: listOf()
-
                 val extractResponses = titles.mapNotNull { title ->
-                    webservice.getExtract(title = title.title).execute().body()
+                    // if response is valid map to list,
+                    val response = webservice.getExtract(title = title.title).execute()
+                    if (response.isSuccessful && response.body() != null && response.body()?.query != null) {
+                        return@mapNotNull response.body()
+                    }
+
+                    return@mapNotNull null
                 }
 
+                // check if any response has been fetched
                 if (extractResponses.isEmpty()) {
                     LogUtils.warn("Failed getting extract responses.")
                     return Failure(404, "Error fetching extracts")
                 }
 
-                LogUtils.warn(extractResponses[0].query.pages[0].title)
                 return Success(extractResponses)
             }
 
             override fun processResponse(response: List<ExtractsQueryResponse>): Feed {
                 // create a new feed and populate the articles,
                 val feed = Feed()
-                feed.articles = response.map { extracts ->
-                    val page = extracts.query.pages[0]
-                    Article(page.pageid, page.title, page.extract)
+                feed.articles = response.mapNotNull { extracts ->
+                    val page = extracts.query?.pages?.getOrNull(0)
+                    if (page != null) {
+                        return@mapNotNull Article(page.pageid, page.title, page.extract, page.thumbnail.source)
+                    }
+
+                    return@mapNotNull null
                 }
 
                 return feed

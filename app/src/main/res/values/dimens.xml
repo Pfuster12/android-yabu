@@ -11,4 +11,7 @@
 
     <!-- Feed -->
     <dimen name="feed_item_image_height">120dp</dimen>
+
+    <!-- Article -->
+    <dimen name="article_image_height">360dp</dimen>
 </resources>

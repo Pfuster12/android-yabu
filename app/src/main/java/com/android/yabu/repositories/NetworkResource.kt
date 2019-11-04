@@ -4,6 +4,7 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.android.yabu.utils.LogUtils
 import kotlinx.coroutines.*
 
 /**
@@ -18,6 +19,10 @@ abstract class NetworkResource<T, K>(private val viewModelScope: CoroutineScope)
      * A [MediatorLiveData] resource.
      */
     private val result = MediatorLiveData<Resource<T>>()
+
+    init {
+        launch()
+    }
 
     @WorkerThread
     abstract suspend fun loadFromDisk(): LiveData<T>
@@ -34,15 +39,21 @@ abstract class NetworkResource<T, K>(private val viewModelScope: CoroutineScope)
     @WorkerThread
     abstract suspend fun saveToDisk(data: T): Boolean
 
-    fun launch() {
+    private fun launch() {
         viewModelScope.launch {
             val diskSource = loadFromDisk()
 
             if (shouldFetch(diskSource.value)) {
+                LogUtils.debug("Disk data is invalid. Fetching from network...")
+
                 // re-attach the disk source and dispatch a loading value,
                 result.addSource(diskSource) { newData ->
                     setValue(Resource.loading(newData))
                 }
+
+                // remove the source before the fetch as two sources can't be duplicated
+                // in case of a failure,
+                result.removeSource(diskSource)
 
                 // start network fetch,
                 val fetchTask = async(Dispatchers.IO) { fetchData() }
@@ -53,6 +64,7 @@ abstract class NetworkResource<T, K>(private val viewModelScope: CoroutineScope)
                             saveToDisk(processResponse(response.data))
                         }
 
+                        // add new disk source and send success,
                         result.addSource(loadFromDisk()) { newData ->
                             setValue(Resource.success(newData))
                         }
@@ -61,12 +73,14 @@ abstract class NetworkResource<T, K>(private val viewModelScope: CoroutineScope)
                     is Failure -> {
                         // re-use the disk data and send the error response,
                         result.addSource(diskSource) { newData ->
-                            Resource.error(response.message, newData)
+                            setValue(Resource.error(response.message, newData))
                         }
                     }
                 }
             } else {
-                // re-use disk source,
+                LogUtils.debug("Disk data is valid. Returning disk source data...")
+
+                // re-use disk source and send a success value,
                 result.addSource(diskSource) { data ->
                     setValue(Resource.success(data))
                 }
