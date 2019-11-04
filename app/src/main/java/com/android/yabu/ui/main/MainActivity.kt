@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         bindViewPager()
     }
 
+    /**
+     * Bind [TabLayout] to the Fragment container.
+     */
     private fun bindViewPager() {
         binding.mainTabLayout.setupOnTabClick(object : TabLayout.OnTabClick {
             override fun onTabClick(pos: Int) {

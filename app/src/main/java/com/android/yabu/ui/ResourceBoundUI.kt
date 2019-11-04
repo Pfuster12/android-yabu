@@ -6,7 +6,7 @@ package com.android.yabu.ui
 interface ResourceBoundUI<T> {
     fun observeData()
 
-    fun bindViews(data: T)
+    fun bindViewModel(data: T)
 
     fun loading()
 

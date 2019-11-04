@@ -19,7 +19,7 @@ import javax.inject.Singleton
  */
 // Informs Dagger that this class should be constructed only once.
 @Singleton
-class FeedRepository @Inject constructor(
+class FeedRepository constructor(
     private val webservice: WikipediaWebservice,
     private val cache: FeedCache,
     private val viewModelScope: CoroutineScope) {
@@ -62,7 +62,6 @@ class FeedRepository @Inject constructor(
                 }
 
                 LogUtils.warn(extractResponses[0].query.pages[0].title)
-
                 return Success(extractResponses)
             }
 

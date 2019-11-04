@@ -25,21 +25,21 @@
         <com.android.yabu.ui.main.Tab
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:tabText="@string/main_data_tab"
             app:tabIcon="@drawable/ic_analytics"/>
 
         <com.android.yabu.ui.main.Tab
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:tabText="@string/main_feed_tab"
             app:tabIcon="@drawable/ic_share"/>
 
         <com.android.yabu.ui.main.Tab
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:tabText="@string/main_words_tab"
             app:tabIcon="@drawable/ic_floppy_disk"/>
     </com.android.yabu.ui.main.TabLayout>
