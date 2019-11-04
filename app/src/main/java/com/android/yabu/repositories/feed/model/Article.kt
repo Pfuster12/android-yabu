@@ -1,4 +1,4 @@
-package com.android.yabu.repositories.feed
+package com.android.yabu.repositories.feed.model
 
 import java.io.Serializable
 

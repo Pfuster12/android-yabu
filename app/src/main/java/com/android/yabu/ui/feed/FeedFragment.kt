@@ -6,17 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.android.yabu.databinding.FragmentFeedBinding
 import com.android.yabu.repositories.Resource
 import com.android.yabu.repositories.Status
-import com.android.yabu.repositories.feed.Feed
+import com.android.yabu.repositories.feed.model.Feed
 import com.android.yabu.ui.ResourceBoundUI
 import com.android.yabu.ui.article.ArticleActivity
 import com.android.yabu.utils.LogUtils
-import com.android.yabu.viewmodels.feed.FeedViewModelFactory
 import com.android.yabu.viewmodels.feed.FeedViewModel
 import com.android.yabu.viewmodels.feed.FeedViewModelFactoryProvider
 

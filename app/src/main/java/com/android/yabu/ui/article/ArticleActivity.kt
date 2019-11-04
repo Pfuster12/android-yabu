@@ -3,8 +3,10 @@ package com.android.yabu.ui.article
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.android.yabu.databinding.ActivityArticleBinding
-import com.android.yabu.repositories.feed.Article
+import com.android.yabu.repositories.feed.model.Article
 import com.android.yabu.ui.ResourceBoundUI
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 /**
  * Displays an Article detail page.
@@ -35,6 +37,11 @@ class ArticleActivity : AppCompatActivity(), ResourceBoundUI<Article> {
     override fun bindViewModel(data: Article) {
         binding.articleTitle.text = data.title
         binding.articleBody.text = data.body
+
+        Glide.with(this)
+            .load(data.image)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(binding.articleImage)
     }
 
     override fun loading() {

@@ -23,6 +23,8 @@ interface WikipediaWebservice {
     @GET(".")
     fun getExtract(@Query("action") action: String = "query",
                    @Query("prop") prop: String = "extracts|pageimages",
+                   // max width of thumbnail,
+                   @Query("pithumbsize") pithumbsize: Int = 1080,
                    @Query("explaintext") explaintext: Boolean = true,
                    @Query("exsectionformat") exsectionformat: String = "plain",
                    @Query("format") format: String = "json",

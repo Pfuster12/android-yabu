@@ -11,6 +11,7 @@
         android:id="@+id/feed_item_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/feed_item_image_height"
+        android:scaleType="centerCrop"
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"/>
 

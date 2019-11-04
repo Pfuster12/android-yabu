@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.yabu.repositories.Resource
 import com.android.yabu.repositories.Response
-import com.android.yabu.repositories.feed.Feed
+import com.android.yabu.repositories.feed.model.Feed
 import com.android.yabu.repositories.feed.FeedRepository
 
 /**

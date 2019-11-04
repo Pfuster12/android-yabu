@@ -2,7 +2,7 @@ package com.android.yabu.repositories.feed.source
 
 import android.content.Context
 import com.android.yabu.repositories.SimpleCache
-import com.android.yabu.repositories.feed.Feed
+import com.android.yabu.repositories.feed.model.Feed
 import com.android.yabu.utils.FileUtils
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers

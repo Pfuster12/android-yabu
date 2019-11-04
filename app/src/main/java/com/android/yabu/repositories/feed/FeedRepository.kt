@@ -3,6 +3,9 @@ package com.android.yabu.repositories.feed
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.android.yabu.repositories.*
+import com.android.yabu.repositories.feed.model.Article
+import com.android.yabu.repositories.feed.model.Feed
+import com.android.yabu.repositories.feed.model.FeedTimestamp
 import com.android.yabu.repositories.feed.source.FeedCache
 import com.android.yabu.repositories.feed.source.network.ExtractsQueryResponse
 import com.android.yabu.repositories.feed.source.network.WikipediaWebservice
@@ -13,7 +16,6 @@ import kotlinx.coroutines.CoroutineScope
  * Repository for the [Feed] data.
  * @property webservice
  * @property cache
- * @property viewModelScope
  */
 class FeedRepository private constructor(
     private val webservice: WikipediaWebservice,
@@ -81,7 +83,12 @@ class FeedRepository private constructor(
                 feed.articles = response.mapNotNull { extracts ->
                     val page = extracts.query?.pages?.getOrNull(0)
                     if (page != null) {
-                        return@mapNotNull Article(page.pageid, page.title, page.extract, page.thumbnail.source)
+                        return@mapNotNull Article(
+                            page.pageid,
+                            page.title,
+                            page.extract,
+                            page.thumbnail?.source ?: ""
+                        )
                     }
 
                     return@mapNotNull null

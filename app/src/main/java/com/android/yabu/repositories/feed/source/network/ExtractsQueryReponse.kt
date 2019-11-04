@@ -17,7 +17,7 @@ data class Page(
     val ns: Int,
     val pageid: Long,
     val title: String,
-    val thumbnail: WikiThumbnail
+    val thumbnail: WikiThumbnail?
 )
 
 data class WikiThumbnail(val source: String)
