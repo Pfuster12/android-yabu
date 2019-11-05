@@ -1,6 +1,6 @@
 package com.yabu
 
-object YabuThemes {
+object YabuTheme {
 
     object ThemeId {
         const val YABU_LIGHT_THEME = "yabu-light"
@@ -29,11 +29,11 @@ object YabuThemes {
             // match the token name to the theme color...
             return when (name) {
 
-                YabuGrammar.TokenNames.NUMBER -> "#00ff00"
+                YabuGrammar.TokenNames.NUMBER -> "#0000ff"
 
                 YabuGrammar.TokenNames.PUNCTUATION -> "#00ff00"
 
-                YabuGrammar.TokenNames.PARTICLE -> "#00ff00"
+                YabuGrammar.TokenNames.PARTICLE -> "#ff0000"
 
                 YabuGrammar.TokenNames.LATIN -> "#00ff00"
 

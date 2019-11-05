@@ -41,7 +41,7 @@
                 tools:text="@string/lorem_ipsum"
                 android:ellipsize="end"
                 android:layout_margin="@dimen/padding_medium"
-                style="@style/YabuText"/>
+                style="@style/YabuText.Reading"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

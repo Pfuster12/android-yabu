@@ -3,8 +3,8 @@ package com.android.yabu.model
 import androidx.annotation.WorkerThread
 
 /**
- * A simple generic cache that writes and reads a JSON of the object instance.
- * Read operation parses into type [T] wrapped in a [Response].
+ * Un-opinionated generic cache that writes and reads to persistent storage.
+ * Read operation parses into type [T].
  */
 interface SimpleCache<T> {
 

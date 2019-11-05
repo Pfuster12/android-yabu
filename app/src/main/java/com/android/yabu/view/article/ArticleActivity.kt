@@ -8,23 +8,24 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import com.android.yabu.databinding.ActivityArticleBinding
 import com.android.yabu.model.feed.model.Article
+import com.android.yabu.utils.LogUtils
 import com.android.yabu.view.ResourceBoundUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.yabu.Lexer
 import com.yabu.YabuGrammar
+import com.yabu.YabuTheme
 
 /**
  * Displays an Article detail page.
  * Consumes an [Article] intent extra and is bound as a [ResourceBoundUI].
  */
 class ArticleActivity : AppCompatActivity(), ResourceBoundUI<Article> {
+    private lateinit var binding: ActivityArticleBinding
 
     companion object {
         const val ARTICLE_INTENT_EXTRA = "funky.ARTICLE_INTENT_EXTRA"
     }
-
-    private lateinit var binding: ActivityArticleBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,15 +58,21 @@ class ArticleActivity : AppCompatActivity(), ResourceBoundUI<Article> {
      * @see Lexer
      */
     private fun tokeniseText(text: String) {
+        // TODO replace for user preference theme.
+        val theme = YabuTheme.getTheme(YabuTheme.ThemeId.YABU_LIGHT_THEME)
+
         // use the default japanese grammar,
         val tokens = Lexer().tokenise(text, YabuGrammar.createJapaneseGrammar())
+        LogUtils.debug("Tokens extracted are $tokens")
 
         val spannable = SpannableString(text)
 
         tokens.forEachIndexed { _, token ->
-            spannable.setSpan(ForegroundColorSpan(Color.BLUE),
+            spannable.setSpan(ForegroundColorSpan(
+                    Color.parseColor(theme.mapTokenTheme(token.name))
+                ),
                 token.startIndex,
-                token.value.length,
+                token.startIndex + token.value.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 

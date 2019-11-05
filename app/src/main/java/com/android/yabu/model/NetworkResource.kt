@@ -25,7 +25,7 @@ abstract class NetworkResource<T, K>(private val viewModelScope: CoroutineScope)
     }
 
     @WorkerThread
-    abstract suspend fun loadFromDisk(): LiveData<T>
+    abstract suspend fun loadFromDisk(): LiveData<T?>
 
     @MainThread
     abstract fun shouldFetch(diskResponse: T?): Boolean

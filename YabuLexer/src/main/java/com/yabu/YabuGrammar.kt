@@ -43,10 +43,10 @@ class YabuGrammar private constructor(val lang_id: Int,
         fun createDefaultGrammar(): List<Grammar> {
             return listOf(
                 Grammar(TokenNames.NUMBER, "\\d"),
-                Grammar(TokenNames.LATIN, "\\w"),
+                Grammar(TokenNames.LATIN, "[a-zA-Z]"),
                 Grammar(TokenNames.WHITESPACE, "\\s"),
                 Grammar(TokenNames.PARTICLE, "の|を|へ|は|と"),
-                Grammar(TokenNames.PUNCTUATION, "。")
+                Grammar(TokenNames.PUNCTUATION, "。|_|-")
             )
         }
     }

@@ -37,7 +37,7 @@ class FeedRepository private constructor(
      */
     fun fetchFeed(viewModelScope: CoroutineScope): LiveData<Resource<Feed>> {
         return object : NetworkResource<Feed, List<ExtractsQueryResponse>>(viewModelScope) {
-            override suspend fun loadFromDisk(): LiveData<Feed> {
+            override suspend fun loadFromDisk(): LiveData<Feed?> {
                 return MutableLiveData(cache.readCache())
             }
 

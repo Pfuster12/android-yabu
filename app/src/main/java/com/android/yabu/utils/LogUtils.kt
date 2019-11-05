@@ -8,7 +8,7 @@ import com.android.yabu.BuildConfig
  */
 object LogUtils {
 
-    private const val LOG_TAG = "Yabu-"
+    private const val LOG_TAG = "Yabu:"
 
     fun debug(msg: String) {
         if (BuildConfig.DEBUG)

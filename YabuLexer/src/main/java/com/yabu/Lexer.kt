@@ -29,17 +29,14 @@ class Lexer {
      */
     private fun applyGrammars(text: String, langGrammar: YabuGrammar, tokens: MutableList<Token>) {
         langGrammar.grammars.forEach { grammar ->
-            val regex = Regex(grammar.rule)
-            val matches = regex.find(text)
+            val regex = Regex(grammar.rule, RegexOption.MULTILINE)
+            val matches = regex.findAll(text)
 
             // map matches to tokens and add to list...
-            matches?.groups?.forEach { match ->
-                if (match != null) {
-                    // build the token and add to list,
-                    tokens.add(Token(name = grammar.name,
-                        value = match.value,
-                        startIndex = match.range.first))
-                }
+            matches.forEach { match ->
+                tokens.add(Token(name = grammar.name,
+                    value = match.value,
+                    startIndex = match.range.first))
             }
         }
     }

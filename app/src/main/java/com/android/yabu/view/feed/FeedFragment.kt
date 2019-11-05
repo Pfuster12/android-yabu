@@ -57,7 +57,8 @@ class FeedFragment : Fragment(), ResourceBoundUI<Feed> {
 
                 Status.SUCCESS -> {
                     if (resource.data != null && resource.data.articles.isNotEmpty()) {
-                        LogUtils.debug("Success getting feed timestamped at: ${resource.data.timestamp.generateTimestamp()}")
+                        LogUtils.debug("Success getting feed timestamped at:" +
+                                " ${resource.data.timestamp.generateTimestamp()}")
 
                         bindViewModel(resource.data)
                         idle()
