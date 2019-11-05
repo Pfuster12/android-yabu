@@ -1,12 +1,18 @@
 package com.android.yabu.view.article
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import com.android.yabu.databinding.ActivityArticleBinding
 import com.android.yabu.model.feed.model.Article
 import com.android.yabu.view.ResourceBoundUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.yabu.Lexer
+import com.yabu.YabuGrammar
 
 /**
  * Displays an Article detail page.
@@ -35,13 +41,35 @@ class ArticleActivity : AppCompatActivity(), ResourceBoundUI<Article> {
     }
 
     override fun bindViewModel(data: Article) {
-        binding.articleTitle.text = data.title
-        binding.articleBody.text = data.body
-
         Glide.with(this)
             .load(data.image)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.articleImage)
+
+        binding.articleTitle.text = data.title
+
+        tokeniseText(data.body)
+    }
+
+    /**
+     * Tokenise the [Article] body to set a spannable string.
+     * @param text
+     * @see Lexer
+     */
+    private fun tokeniseText(text: String) {
+        // use the default japanese grammar,
+        val tokens = Lexer().tokenise(text, YabuGrammar.createJapaneseGrammar())
+
+        val spannable = SpannableString(text)
+
+        tokens.forEachIndexed { _, token ->
+            spannable.setSpan(ForegroundColorSpan(Color.BLUE),
+                token.startIndex,
+                token.value.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        binding.articleBody.text = spannable
     }
 
     override fun loading() {

@@ -2,7 +2,7 @@ package com.android.yabu.viewmodel.feed
 
 import android.content.Context
 import com.android.yabu.model.feed.FeedRepository
-import com.android.yabu.model.feed.source.FeedCache
+import com.android.yabu.model.feed.source.local.FeedCache
 import com.android.yabu.model.feed.source.network.WikipediaWebservice
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

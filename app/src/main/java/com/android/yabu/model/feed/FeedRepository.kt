@@ -6,7 +6,7 @@ import com.android.yabu.model.*
 import com.android.yabu.model.feed.model.Article
 import com.android.yabu.model.feed.model.Feed
 import com.android.yabu.model.feed.model.FeedTimestamp
-import com.android.yabu.model.feed.source.FeedCache
+import com.android.yabu.model.feed.source.local.FeedCache
 import com.android.yabu.model.feed.source.network.ExtractsQueryResponse
 import com.android.yabu.model.feed.source.network.WikipediaWebservice
 import com.android.yabu.utils.LogUtils
@@ -61,7 +61,9 @@ class FeedRepository private constructor(
                 val extractResponses = titles.mapNotNull { title ->
                     // if response is valid map to list,
                     val response = webservice.getExtract(title = title.title).execute()
-                    if (response.isSuccessful && response.body() != null && response.body()?.query != null) {
+                    if (response.isSuccessful
+                        && response.body() != null
+                        && response.body()?.query != null) {
                         return@mapNotNull response.body()
                     }
 

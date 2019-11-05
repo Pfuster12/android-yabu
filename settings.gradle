@@ -1,2 +1,3 @@
 rootProject.name='Yabu'
 include ':app'
+include ':YabuLexer'

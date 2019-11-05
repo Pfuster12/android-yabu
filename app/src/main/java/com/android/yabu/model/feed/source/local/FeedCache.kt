@@ -1,4 +1,4 @@
-package com.android.yabu.model.feed.source
+package com.android.yabu.model.feed.source.local
 
 import android.content.Context
 import com.android.yabu.model.SimpleCache
@@ -20,12 +20,15 @@ class FeedCache(val context: Context?) : SimpleCache<Feed> {
     override suspend fun writeCache(data: Feed): Boolean {
         val str = Gson().toJson(data)
         return withContext(Dispatchers.IO) {
-            FileUtils.writeFile(context, FEED_CACHE_FILE_NAME, str)
+            FileUtils.writeFile(context,
+                FEED_CACHE_FILE_NAME, str)
         }
     }
 
     override suspend fun readCache(): Feed? {
-        val str = withContext(Dispatchers.IO) { FileUtils.readFile(context, FEED_CACHE_FILE_NAME) }
+        val str = withContext(Dispatchers.IO) { FileUtils.readFile(context,
+            FEED_CACHE_FILE_NAME
+        ) }
 
         return try {
             Gson().fromJson(str, Feed::class.java)
