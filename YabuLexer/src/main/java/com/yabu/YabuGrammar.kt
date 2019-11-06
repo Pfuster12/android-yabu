@@ -54,9 +54,9 @@ class YabuGrammar private constructor(val lang_id: Int,
                 Grammar(TokenName.PARTICLE, "の|を|へ|は|と"),
                 Grammar(TokenName.PUNCTUATION, "\\W"),
                 // using the \p{script=} regex notation,
-                Grammar(TokenName.HIRAGANA, "\\p{script=Hiragana}"),
-                Grammar(TokenName.KATAKANA, "\\p{script=Katakana}"),
-                Grammar(TokenName.KANJI, "\\p{script=Han}")
+                Grammar(TokenName.HIRAGANA, "\\p{script=Hiragana}+"),
+                Grammar(TokenName.KATAKANA, "\\p{script=Katakana}+"),
+                Grammar(TokenName.KANJI, "\\p{script=Han}+")
             )
         }
     }

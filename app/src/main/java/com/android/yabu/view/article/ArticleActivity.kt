@@ -9,8 +9,10 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.TextAppearanceSpan
 import android.view.View
 import android.widget.Toast
+import com.android.yabu.R
 import com.android.yabu.databinding.ActivityArticleBinding
 import com.android.yabu.model.feed.model.Article
 import com.android.yabu.utils.LogUtils
@@ -75,14 +77,10 @@ class ArticleActivity : AppCompatActivity(), ResourceBoundUI<Article> {
         tokens.forEachIndexed { _, token ->
             val tokenTheme = theme.mapTokenTheme(token.name)
 
-            spannable.setSpan(ForegroundColorSpan(Color.parseColor(tokenTheme.color)),
-                token.startIndex,
-                token.startIndex + token.value.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
             // match the effects to the span,
             when (tokenTheme.effect) {
-                TokenTextEffect.CLICKABLE -> spannable.setSpan(YabuTokenClickableSpan(this),
+                TokenTextEffect.CLICKABLE -> spannable.setSpan(
+                    YabuTokenClickableSpan(this, token),
                     token.startIndex,
                     token.startIndex + token.value.length,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -91,6 +89,23 @@ class ArticleActivity : AppCompatActivity(), ResourceBoundUI<Article> {
 
                 TokenTextEffect.NONE -> {}
             }
+
+            // match the token name for special styles,
+            when (token.name) {
+                YabuGrammar.TokenName.KANJI,
+                YabuGrammar.TokenName.LATIN -> {
+                    spannable.setSpan(
+                        TextAppearanceSpan(this, R.style.KanjiTokenTextAppearance),
+                        token.startIndex,
+                        token.startIndex + token.value.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+            }
+
+            spannable.setSpan(ForegroundColorSpan(Color.parseColor(tokenTheme.color)),
+                token.startIndex,
+                token.startIndex + token.value.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         binding.articleBody.apply {

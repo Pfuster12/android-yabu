@@ -35,16 +35,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="@string/lorem_ipsum"
-                    android:ellipsize="end"
-                    style="@style/YabuText.Reading.Title"/>
+                    android:maxLines="4"
+                    style="@style/YabuText.Reading.Japanese.Title"/>
 
                 <TextView
                     android:id="@+id/article_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="@string/lorem_ipsum"
-                    android:ellipsize="end"
-                    style="@style/YabuText.Reading"/>
+                    style="@style/YabuText.Reading.Japanese"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -5,12 +5,18 @@ import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
+import com.yabu.Token
 
-class YabuTokenClickableSpan(val context: Context) : ClickableSpan() {
+/**
+ * [ClickableSpan] subclass handling a token.
+ * @param context
+ * @param token
+ */
+class YabuTokenClickableSpan(val context: Context, val token: Token) : ClickableSpan() {
 
     override fun onClick(widget: View) {
         Toast.makeText(context,
-            widget.x.toString(),
+            token.value,
             Toast.LENGTH_SHORT)
             .show()
     }
