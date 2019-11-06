@@ -33,4 +33,11 @@
         <item name="android:lineSpacingMultiplier">1.8</item>
     </style>
 
+    <!-- Reading Text -->
+    <style name="YabuText.Reading.Title" parent="YabuText.Reading">
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

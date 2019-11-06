@@ -19,7 +19,7 @@ class YabuGrammar private constructor(val lang_id: Int,
         }
     }
 
-    object TokenNames {
+    object TokenName {
 
         const val NUMBER = "number"
 
@@ -30,6 +30,12 @@ class YabuGrammar private constructor(val lang_id: Int,
         const val PARTICLE = "particle"
 
         const val PUNCTUATION = "punctuation"
+
+        const val HIRAGANA = "hiragana"
+
+        const val KATAKANA = "katakana"
+
+        const val KANJI = "kanji"
     }
 
     /**
@@ -42,11 +48,15 @@ class YabuGrammar private constructor(val lang_id: Int,
          */
         fun createDefaultGrammar(): List<Grammar> {
             return listOf(
-                Grammar(TokenNames.NUMBER, "\\d"),
-                Grammar(TokenNames.LATIN, "[a-zA-Z]"),
-                Grammar(TokenNames.WHITESPACE, "\\s"),
-                Grammar(TokenNames.PARTICLE, "の|を|へ|は|と"),
-                Grammar(TokenNames.PUNCTUATION, "。|_|-")
+                Grammar(TokenName.NUMBER, "\\d"),
+                Grammar(TokenName.LATIN, "[a-zA-Z]"),
+                Grammar(TokenName.WHITESPACE, "\\s"),
+                Grammar(TokenName.PARTICLE, "の|を|へ|は|と"),
+                Grammar(TokenName.PUNCTUATION, "\\W"),
+                // using the \p{script=} regex notation,
+                Grammar(TokenName.HIRAGANA, "\\p{script=Hiragana}"),
+                Grammar(TokenName.KATAKANA, "\\p{script=Katakana}"),
+                Grammar(TokenName.KANJI, "\\p{script=Han}")
             )
         }
     }

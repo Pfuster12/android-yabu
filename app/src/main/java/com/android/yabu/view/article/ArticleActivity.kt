@@ -5,7 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.view.View
+import android.widget.Toast
 import com.android.yabu.databinding.ActivityArticleBinding
 import com.android.yabu.model.feed.model.Article
 import com.android.yabu.utils.LogUtils
@@ -13,6 +18,7 @@ import com.android.yabu.view.ResourceBoundUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.yabu.Lexer
+import com.yabu.TokenTextEffect
 import com.yabu.YabuGrammar
 import com.yabu.YabuTheme
 
@@ -63,20 +69,36 @@ class ArticleActivity : AppCompatActivity(), ResourceBoundUI<Article> {
 
         // use the default japanese grammar,
         val tokens = Lexer().tokenise(text, YabuGrammar.createJapaneseGrammar())
-        LogUtils.debug("Tokens extracted are $tokens")
 
         val spannable = SpannableString(text)
 
         tokens.forEachIndexed { _, token ->
-            spannable.setSpan(ForegroundColorSpan(
-                    Color.parseColor(theme.mapTokenTheme(token.name))
-                ),
+            val tokenTheme = theme.mapTokenTheme(token.name)
+
+            spannable.setSpan(ForegroundColorSpan(Color.parseColor(tokenTheme.color)),
                 token.startIndex,
                 token.startIndex + token.value.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            // match the effects to the span,
+            when (tokenTheme.effect) {
+                TokenTextEffect.CLICKABLE -> spannable.setSpan(YabuTokenClickableSpan(this),
+                    token.startIndex,
+                    token.startIndex + token.value.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                TokenTextEffect.BOLD -> {}
+
+                TokenTextEffect.NONE -> {}
+            }
         }
 
-        binding.articleBody.text = spannable
+        binding.articleBody.apply {
+            this.text = spannable
+            this.linksClickable = true
+            this.isClickable = true
+            this.movementMethod = LinkMovementMethod.getInstance()
+        }
     }
 
     override fun loading() {

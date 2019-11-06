@@ -9,5 +9,5 @@ interface Theme {
      * Map token name to theme value.
      * @param name
      */
-    fun mapTokenTheme(name: String): String
+    fun mapTokenTheme(name: String): TokenTheme
 }
