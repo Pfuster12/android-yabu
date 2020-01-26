@@ -1,21 +1,14 @@
 package com.android.yabu.view.article
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.text.style.TextAppearanceSpan
-import android.view.View
-import android.widget.Toast
-import com.android.yabu.R
+import androidx.appcompat.app.AppCompatActivity
 import com.android.yabu.databinding.ActivityArticleBinding
 import com.android.yabu.model.feed.model.Article
-import com.android.yabu.utils.LogUtils
 import com.android.yabu.view.ResourceBoundUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -79,27 +72,15 @@ class ArticleActivity : AppCompatActivity(), ResourceBoundUI<Article> {
 
             // match the effects to the span,
             when (tokenTheme.effect) {
-                TokenTextEffect.CLICKABLE -> spannable.setSpan(
-                    YabuTokenClickableSpan(this, token),
-                    token.startIndex,
-                    token.startIndex + token.value.length,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                TokenTextEffect.CLICKABLE ->
+                    spannable.setSpan(YabuTokenClickableSpan(this, token),
+                        token.startIndex,
+                        token.startIndex + token.value.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
                 TokenTextEffect.BOLD -> {}
 
                 TokenTextEffect.NONE -> {}
-            }
-
-            // match the token name for special styles,
-            when (token.name) {
-                YabuGrammar.TokenName.KANJI,
-                YabuGrammar.TokenName.LATIN -> {
-                    spannable.setSpan(
-                        TextAppearanceSpan(this, R.style.KanjiTokenTextAppearance),
-                        token.startIndex,
-                        token.startIndex + token.value.length,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
             }
 
             spannable.setSpan(ForegroundColorSpan(Color.parseColor(tokenTheme.color)),

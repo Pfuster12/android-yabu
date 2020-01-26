@@ -5,6 +5,7 @@
 
     <color name="white">#fff</color>
     <color name="black">#000</color>
+    <color name="background">@android:color/background_light</color>
 
     <!-- Grey palette -->
     <color name="darkGrey">#404040</color>

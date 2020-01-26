@@ -7,13 +7,14 @@
 
     <application
         android:name=".YabuApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.article.ArticleActivity"></activity>
+        <activity android:name=".view.settings.SettingsActivity"/>
+        <activity android:name=".view.article.ArticleActivity" />
         <activity android:name=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

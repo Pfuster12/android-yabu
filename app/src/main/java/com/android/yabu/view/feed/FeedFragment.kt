@@ -15,6 +15,7 @@ import com.android.yabu.model.feed.model.Feed
 import com.android.yabu.view.ResourceBoundUI
 import com.android.yabu.view.article.ArticleActivity
 import com.android.yabu.utils.LogUtils
+import com.android.yabu.view.settings.SettingsActivity
 import com.android.yabu.viewmodel.feed.FeedViewModel
 import com.android.yabu.viewmodel.feed.FeedViewModelFactoryProvider
 
@@ -35,6 +36,8 @@ class FeedFragment : Fragment(), ResourceBoundUI<Feed> {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentFeedBinding.inflate(inflater)
+
+        binding.feedSettings.setOnClickListener { onSettingsClick() }
 
         // observe the feed data,
         observeData()
@@ -79,6 +82,11 @@ class FeedFragment : Fragment(), ResourceBoundUI<Feed> {
             intent.putExtra(ArticleActivity.ARTICLE_INTENT_EXTRA, data.articles[pos])
             startActivity(intent)
         }
+    }
+
+    private fun onSettingsClick() {
+        val intent = Intent(context, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     override fun loading() {

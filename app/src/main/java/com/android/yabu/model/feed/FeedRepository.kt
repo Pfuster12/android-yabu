@@ -8,9 +8,13 @@ import com.android.yabu.model.feed.model.Feed
 import com.android.yabu.model.feed.model.FeedTimestamp
 import com.android.yabu.model.feed.source.local.FeedCache
 import com.android.yabu.model.feed.source.network.ExtractsQueryResponse
+import com.android.yabu.model.feed.source.network.TitlesQueryResponse
 import com.android.yabu.model.feed.source.network.WikipediaWebservice
 import com.android.yabu.utils.LogUtils
 import kotlinx.coroutines.CoroutineScope
+import okhttp3.MediaType
+import okhttp3.ResponseBody
+import java.io.IOException
 
 /**
  * Repository for the [Feed] data.
@@ -48,7 +52,13 @@ class FeedRepository private constructor(
 
             override suspend fun fetchData(): Response<List<ExtractsQueryResponse>> {
                 // get random titles from the webservice,
-                val titlesResponse = webservice.getRandomTitles().execute()
+                val titlesResponse = try {
+                    webservice.getRandomTitles().execute()
+                } catch (e: IOException) {
+                    retrofit2.Response.error<TitlesQueryResponse>(400,
+                        ResponseBody.create(MediaType.parse("text/plain"),
+                            "error"))
+                }
 
                 // if response is valid,
                 if (!titlesResponse.isSuccessful || titlesResponse.body() == null) {

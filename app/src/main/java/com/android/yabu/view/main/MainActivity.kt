@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
      * Bind [TabLayout] to the Fragment container.
      */
     private fun bindViewPager() {
-        // set feed as default item,
         binding.mainTabLayout.currentItem = 1
+
         binding.mainTabLayout.setupOnTabClick(object : TabLayout.OnTabClick {
             override fun onTabClick(pos: Int) {
                 val fragment = when (pos) {

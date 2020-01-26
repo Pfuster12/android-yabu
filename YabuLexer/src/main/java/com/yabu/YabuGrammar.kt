@@ -7,9 +7,10 @@ package com.yabu
  * @property grammars
  * @property regexFlags
  */
-class YabuGrammar private constructor(val lang_id: Int,
-                       val grammars: List<Grammar>,
-                       val regexFlags: String = "") {
+class YabuGrammar private constructor(
+    private val lang_id: Int,
+    val grammars: List<Grammar>,
+    private val regexFlags: String = "") {
 
     companion object {
 
@@ -48,13 +49,13 @@ class YabuGrammar private constructor(val lang_id: Int,
          */
         fun createDefaultGrammar(): List<Grammar> {
             return listOf(
-                Grammar(TokenName.NUMBER, "\\d"),
-                Grammar(TokenName.LATIN, "[a-zA-Z]"),
+                Grammar(TokenName.NUMBER, "\\d+x"),
+                Grammar(TokenName.LATIN, "[a-zA-Z]+"),
                 Grammar(TokenName.WHITESPACE, "\\s"),
                 Grammar(TokenName.PARTICLE, "の|を|へ|は|と"),
                 Grammar(TokenName.PUNCTUATION, "\\W"),
                 // using the \p{script=} regex notation,
-                Grammar(TokenName.HIRAGANA, "\\p{script=Hiragana}+"),
+                Grammar(TokenName.HIRAGANA, "\\p{script=Hiragana}"),
                 Grammar(TokenName.KATAKANA, "\\p{script=Katakana}+"),
                 Grammar(TokenName.KANJI, "\\p{script=Han}+")
             )

@@ -46,6 +46,7 @@ class TabLayout : LinearLayout {
      * Gets given Tab child.
      * @param i Index of child.
      */
+    @Suppress("UNUSED")
     private fun getTabChild(i: Int): Tab {
         return children.elementAt(i) as Tab
     }

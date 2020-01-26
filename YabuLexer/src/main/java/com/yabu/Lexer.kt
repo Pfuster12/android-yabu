@@ -1,7 +1,7 @@
 package com.yabu
 
 /**
- * A lexer serves to tokenise Japanese character based on defined grammar rules.
+ * A lexer serves to tokenise lexemes based on defined grammar rules.
  */
 class Lexer {
 
